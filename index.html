@@ -1,0 +1,730 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>珈琲 六時半</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Klee+One:wght@600&family=Zen+Antique&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap">
+<style>
+/* 明け方、まだ月が残る暗い坂。上はカップの話、下は店に実際にある紙の物（手書きのメモ、印刷した品書き、ショップカード）と、雑誌のように大きさをずらした写真。暗い一色の見た目に決めている */
+:root{
+  color-scheme:dark;
+  --bg:#0D0907;
+  --cream:#EFE6D8;
+  --mute:#B9AA96;
+  --amber:#D39A5E;
+  --line:rgba(239,230,216,.16);
+  --paper:#EDE3CF;
+  --ink:#2C1E16;
+  --ink-mute:#6B5747;
+  --hanko:#B5402C;
+  --f-mincho:"Zen Antique","Shippori Mincho","Yu Mincho","Hiragino Mincho ProN",serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+  --f-latin:"Cormorant Garamond","Times New Roman","Yu Mincho",serif;
+  --f-hand:"Klee One","Yu Gothic","Hiragino Sans",sans-serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .22  0 0 0 0 .14  0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html{background:var(--bg);scroll-behavior:smooth;scroll-padding-top:16px;scroll-padding-bottom:96px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--cream);font-family:var(--f-body);font-size:15.5px;line-height:1.85;-webkit-text-size-adjust:100%}
+.page,.bar,.page *,.page *::before,.page *::after,.bar *{box-sizing:border-box}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.num{font-family:var(--f-latin);font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1;max-width:480px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 calc(110px + env(safe-area-inset-bottom,0px));
+  overflow-x:clip;line-break:strict;word-break:auto-phrase}
+
+/* 頭 */
+.top{position:absolute;z-index:3;top:0;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:14px}
+.mark{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
+.mark-jp{font-family:var(--f-mincho);font-size:22px;letter-spacing:.1em}
+.mark-en{font-family:var(--f-latin);font-style:italic;font-weight:500;font-size:14px;letter-spacing:.04em;color:var(--mute)}
+.nav{display:flex;gap:16px;margin:0;padding:0;list-style:none;font-size:13px}
+.nav a{text-decoration:none;color:var(--mute);padding-block:10px}
+
+/* 注ぐ話（読み進めると変わる） */
+.story{position:relative;padding-top:64px}
+.stage{position:relative}
+.beat{padding-top:34px}
+.beat-time{display:block;font-family:var(--f-latin);font-style:italic;font-weight:500;font-size:clamp(64px,22vw,96px);line-height:.9;color:rgba(239,230,216,.13);margin-bottom:-.32em;letter-spacing:.01em}
+.beat-label{position:relative;display:block;font-size:13px;color:var(--amber);letter-spacing:.06em}
+.beat h1,.beat h2{position:relative;margin:6px 0 0;font-family:var(--f-mincho);font-weight:400;font-size:clamp(28px,8.4vw,38px);line-height:1.38;letter-spacing:.06em;text-wrap:balance}
+.beat p{margin:12px 0 0;max-width:22em;font-size:14.5px;line-height:1.85;color:var(--mute)}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:18px;padding:0 22px;border-radius:999px;
+  background:var(--cream);color:var(--bg);text-decoration:none;font-size:14px;font-weight:700;letter-spacing:.06em}
+.cup-slot,.dots,.cue{display:none}
+.js-story .story{height:340vh;height:340svh;padding-top:0}
+.js-story .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.js-story .beat{position:absolute;left:0;right:0;top:66px;padding-top:0;opacity:0;pointer-events:none;will-change:opacity,transform}
+.js-story .beat.on{pointer-events:auto}
+.js-story .beat p{max-width:min(22em,64%)}
+.js-story .cup-slot{display:block;position:absolute;left:50%;bottom:calc(78px + env(safe-area-inset-bottom,0px));
+  width:min(84vw,42svh,420px);aspect-ratio:1;transform:translateX(-50%)}
+.no-gl .cup-slot{background:url(img/cup.jpg) center/cover;border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle,#000 56%,transparent 71%);mask-image:radial-gradient(circle,#000 56%,transparent 71%)}
+.js-story .dots{display:flex;flex-direction:column;gap:10px;position:absolute;right:0;top:42%;margin:0;padding:0;list-style:none}
+.dots li{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.dots li.on{background:var(--cream);transform:scale(1.25)}
+.js-story .cue{display:block;position:absolute;left:0;right:0;bottom:calc(80px + env(safe-area-inset-bottom,0px));margin:0;text-align:center;
+  font-family:var(--f-hand);font-size:13.5px;color:var(--mute);letter-spacing:.08em}
+@media (max-height:780px){
+  .beat h1,.beat h2{font-size:clamp(23px,6.8vw,30px)}
+  .beat p{font-size:13.5px}
+  .beat-time{font-size:clamp(48px,15vw,72px)}
+  .pill{margin-top:12px}
+}
+
+/* 紙の物に共通：少し傾けて置き、下に影を落とす */
+.paper{position:relative;background-color:var(--paper);background-image:var(--grain);color:var(--ink);
+  box-shadow:0 22px 40px rgba(0,0,0,.55),0 3px 6px rgba(0,0,0,.35)}
+
+/* 今日のこと：手書きのメモをテープで留めたもの */
+.memo{padding-top:56px}
+.memo .paper{width:90%;margin-left:3%;padding:30px 22px 22px;transform:rotate(-1.7deg);
+  background-image:var(--grain),repeating-linear-gradient(transparent 0 31px,rgba(70,50,35,.16) 31px 32px);background-position:0 0,0 14px}
+.memo .tape{position:absolute;top:-12px;left:50%;width:96px;height:28px;transform:translateX(-50%) rotate(3deg);
+  background:rgba(232,222,196,.62);clip-path:polygon(3% 8%,97% 0,100% 22%,96% 47%,99% 74%,95% 100%,4% 92%,0 70%,4% 45%,0 22%)}
+.memo h2{margin:0;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--f-hand);font-weight:600;font-size:20px;line-height:32px}
+.memo-date{font-size:14px;color:var(--ink-mute)}
+.memo ul{list-style:none;margin:0;padding:0;font-family:var(--f-hand);font-size:16px;line-height:32px}
+.memo li{padding-left:1em;text-indent:-1em}
+.memo li::before{content:"・"}
+.memo-sign{display:block;text-align:right;font-family:var(--f-hand);font-size:14px;line-height:32px;color:var(--ink-mute)}
+
+/* よく出る品：雑誌のように大きさと位置をずらした写真 */
+.picks{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:12px;padding-top:88px}
+.picks-h{grid-column:1/3;grid-row:1;margin:0;writing-mode:vertical-rl;font-family:var(--f-mincho);font-weight:400;font-size:30px;letter-spacing:.14em;line-height:1}
+.pick{margin:0;min-width:0}
+.pick-photo{position:relative;overflow:hidden;max-width:100%;background:#1E1611}
+.pick-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.pick figcaption{margin-top:10px}
+.pick-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pick-name{font-family:var(--f-mincho);font-size:20px;letter-spacing:.04em;line-height:1.4}
+.pick-price{font-size:26px;line-height:1}
+.pick-note{display:block;margin-top:4px;font-family:var(--f-hand);font-size:14.5px;line-height:1.6;color:var(--mute)}
+.p1{grid-column:3/13;grid-row:1}
+.p1 .pick-photo{aspect-ratio:4/5}
+.p2{grid-column:1/9;grid-row:2;margin-top:52px}
+.p2 .pick-photo{aspect-ratio:1}
+.p2 figcaption{margin-right:-52%}
+.p3{grid-column:5/13;grid-row:3;margin-top:44px}
+.p3 .pick-photo{aspect-ratio:1;overflow:visible}
+.p3 .pick-photo img{position:relative}
+.p3 figcaption{text-align:right}
+.p3 .pick-row{justify-content:flex-end}
+.p4{grid-column:2/11;grid-row:4;margin-top:44px}
+.p4 .pick-photo{aspect-ratio:3/2}
+.hanko{position:absolute;z-index:1;top:-16px;left:-14px;width:54px;height:54px;transform:rotate(-12deg);color:var(--hanko);filter:url(#rough)}
+.hanko circle{fill:none;stroke:currentColor;stroke-width:3.2}
+.hanko text{fill:currentColor;font-family:var(--f-mincho);font-size:27px}
+
+/* 品書き：印刷した品書きの紙 */
+.menu-sec{padding-top:96px}
+.menu-card{padding:34px 24px 30px;transform:rotate(.7deg)}
+.menu-card::before{content:"";position:absolute;inset:9px;border:1px solid rgba(44,30,22,.5);outline:1px solid rgba(44,30,22,.5);outline-offset:-5px;pointer-events:none}
+.menu-title{margin:0;text-align:center;font-family:var(--f-mincho);font-weight:400;font-size:30px;letter-spacing:.4em;padding-left:.4em}
+.menu-tax{margin:2px 0 0;text-align:center;font-size:12px;color:var(--ink-mute)}
+.menu-cat{display:flex;align-items:center;gap:12px;margin:26px 0 6px;font-family:var(--f-mincho);font-weight:400;font-size:18px;letter-spacing:.2em}
+.menu-cat::before,.menu-cat::after{content:"";flex:1;border-top:1px solid rgba(44,30,22,.35)}
+.menu-cat small{font-family:var(--f-body);font-size:11.5px;letter-spacing:0;color:var(--ink-mute)}
+.menu-list{list-style:none;margin:0;padding:0}
+.menu-list li{display:grid;grid-template-columns:auto minmax(12px,1fr) auto;align-items:baseline;column-gap:6px;padding-block:8px 2px}
+.mi-name{font-weight:700;font-size:15.5px;line-height:1.45;min-width:0}
+.mi-dots{border-bottom:1.5px dotted rgba(44,30,22,.4);transform:translateY(-4px)}
+.mi-price{font-family:var(--f-latin);font-weight:600;font-size:21px;line-height:1;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.mi-price small{font-family:var(--f-body);font-size:10.5px;font-weight:700;margin:0 2px 0 7px;color:var(--ink-mute)}
+.mi-price small:first-child{margin-left:0}
+.mi-spec{grid-column:1/-1;margin:1px 0 0;font-size:12.5px;line-height:1.6;color:var(--ink-mute)}
+.mi-pick{font-family:var(--f-hand);font-size:13px;font-weight:600;color:var(--hanko);margin-left:6px}
+
+/* 豆 */
+.beans-sec{padding-top:96px}
+.beans-h{margin:0;font-family:var(--f-mincho);font-weight:400;font-size:31px;letter-spacing:.07em;line-height:1.3}
+.beans-lead{margin:6px 0 18px;font-size:14px;color:var(--mute)}
+.bleed{margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));aspect-ratio:16/10;max-width:none;overflow:hidden}
+.bleed img{display:block;width:100%;height:100%;object-fit:cover}
+.bean{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:14px;padding-top:26px}
+.bean h3{margin:0;font-family:var(--f-mincho);font-weight:400;font-size:22px;line-height:1.35;letter-spacing:.04em}
+.bean-sub{grid-column:1;margin:2px 0 0;font-size:12.5px;color:var(--mute)}
+.bean-price{grid-column:2;grid-row:1/3;align-self:start;margin:2px 0 0;text-align:right;font-size:30px;line-height:1}
+.bean-price small{display:block;font-family:var(--f-body);font-size:11px;font-weight:700;color:var(--mute);margin-bottom:3px}
+.bean-taste{grid-column:1/-1;margin:8px 0 0;font-size:14.5px;line-height:1.75}
+.beans-note{margin:22px 0 0;font-family:var(--f-hand);font-size:14.5px;line-height:1.7;color:var(--mute)}
+
+/* 店の一日 */
+.day-sec{padding-top:96px}
+.day-h{position:relative;z-index:1;margin:0 0 -22px;font-family:var(--f-mincho);font-weight:400;font-size:34px;line-height:1.2;letter-spacing:.07em;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.day-photo{margin:0 0 20px 18%;aspect-ratio:3/2;max-width:100%;overflow:hidden}
+.day-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.day{list-style:none;margin:0;padding:0}
+.day li{display:grid;grid-template-columns:76px minmax(0,1fr);column-gap:14px;align-items:baseline;padding-block:7px;position:relative}
+.day time{font-family:var(--f-latin);font-style:italic;font-weight:500;font-size:30px;line-height:1;text-align:right;font-variant-numeric:lining-nums tabular-nums}
+.day p{margin:0;font-size:15px;line-height:1.75}
+.day .now{display:none}
+.day li.is-now time{color:var(--amber)}
+.day li.is-now .now{display:block;position:absolute;left:-6px;top:-14px;font-family:var(--f-hand);font-size:13px;color:var(--amber);transform:rotate(-8deg)}
+
+/* 道順：ショップカード */
+.access-sec{padding-top:96px}
+.access-h{margin:0 0 20px;font-family:var(--f-mincho);font-weight:400;font-size:31px;letter-spacing:.07em}
+.shopcard{padding:20px 18px 18px;border-radius:3px;transform:rotate(-1deg)}
+.sc-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid rgba(44,30,22,.3);padding-bottom:8px}
+.sc-name{font-family:var(--f-mincho);font-size:20px;letter-spacing:.1em}
+.sc-en{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var(--ink-mute)}
+.map{display:block;width:100%;height:auto;margin:10px 0 6px}
+.m-ln{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round;opacity:.7}
+.m-road{fill:none;stroke:var(--ink);stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+.m-road-in{fill:none;stroke:var(--paper);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.m-stairs{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:2 4}
+.m-box{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.m-solid{fill:var(--ink)}
+.m-shop{fill:var(--hanko)}
+.m-ring{fill:none;stroke:var(--hanko);stroke-width:2}
+.m-t{font-family:var(--f-body);font-size:11.5px;fill:var(--ink)}
+.m-tm{font-family:var(--f-mincho);font-size:14px;fill:var(--ink)}
+.m-th{font-family:var(--f-hand);font-size:13px;fill:var(--ink)}
+.sc-info{margin:0;display:grid;grid-template-columns:3.6em minmax(0,1fr);column-gap:10px;row-gap:3px;font-size:13px;line-height:1.65}
+.sc-info dt{margin:0;color:var(--ink-mute);font-size:12px;padding-top:.15em}
+.sc-info dd{margin:0}
+.sc-info .num{font-size:16px}
+.steps{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:12px}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:10px;align-items:baseline}
+.steps .n{font-family:var(--f-latin);font-style:italic;font-weight:500;font-size:30px;line-height:1;color:var(--amber)}
+.steps p{margin:0;font-size:15px;line-height:1.75}
+.access-note{margin:16px 0 0;font-size:13.5px;color:var(--mute)}
+
+.foot{margin-top:72px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.8;color:var(--mute)}
+
+/* 下の帯 */
+.bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:20;
+  display:flex;align-items:center;gap:8px;background:rgba(13,9,7,.86);border-top:1px solid var(--line);
+  padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  font-family:var(--f-body);color:var(--cream)}
+.bar-status{flex:1;min-width:0;margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:9px;align-items:center;line-height:1.35}
+.bar .dot{grid-row:1/span 2;width:10px;height:10px;border-radius:50%;border:1px solid var(--mute)}
+.bar.is-open .dot{background:var(--amber);border-color:var(--amber)}
+.st-main{font-weight:700;font-size:15px}
+.st-sub{font-size:12px;color:var(--mute);overflow-wrap:anywhere}
+.bar-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;text-decoration:none;border-radius:999px;
+  font-size:14px;font-weight:700;letter-spacing:.06em;border:1px solid var(--line);white-space:nowrap}
+.bar-btn.fill{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="4" result="nz"/><feDisplacementMap in="SourceGraphic" in2="nz" scale="2.4"/></filter>
+</svg>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<div class="page" lang="ja">
+  <header class="top">
+    <a class="mark" href="#top"><span class="mark-jp">珈琲 六時半</span><span class="mark-en">Rokuji-han Coffee</span></a>
+    <ul class="nav"><li><a href="#menu">品書き</a></li><li><a href="#beans">豆</a></li><li><a href="#access">道順</a></li></ul>
+  </header>
+
+  <section class="story" id="top" aria-label="最初の一杯ができるまで">
+    <div class="stage" id="stage">
+      <article class="beat" data-beat="0">
+        <span class="beat-time" aria-hidden="true">6:30</span>
+        <span class="beat-label">開店して、最初の一杯</span>
+        <h1>坂の途中で、<br>六時半に<br>湯気が立つ。</h1>
+        <p>汐見坂のバス停の前にある、小さなコーヒースタンドです。</p>
+        <a class="pill" href="#menu">品書きを見る</a>
+      </article>
+      <article class="beat" data-beat="1">
+        <span class="beat-time" aria-hidden="true">6:34</span>
+        <span class="beat-label">カフェラテ <span class="num">480</span>円</span>
+        <h2>深煎りに、<br>温めた牛乳を。</h2>
+        <p>エスプレッソ2杯分に、牛乳180ml。豆は毎週月曜にここで焼いています。</p>
+      </article>
+      <article class="beat" data-beat="2">
+        <span class="beat-time" aria-hidden="true">6:40</span>
+        <span class="beat-label">冷めないうちに</span>
+        <h2>急がずに、<br>一杯どうぞ。</h2>
+        <p>朝6時半から昼の2時まで。水曜はお休みです。</p>
+        <a class="pill" href="#access">道順を見る</a>
+      </article>
+      <div class="cup-slot" id="cup" aria-hidden="true"></div>
+      <ol class="dots" aria-hidden="true"><li class="on"></li><li></li><li></li></ol>
+      <p class="cue" id="cue" aria-hidden="true">下へ読むと注がれます</p>
+    </div>
+  </section>
+
+  <section class="memo" aria-labelledby="memo-title">
+    <div class="paper">
+      <span class="tape" aria-hidden="true"></span>
+      <h2 id="memo-title">今日のこと <span class="memo-date" id="today"></span></h2>
+      <ul>
+        <li>豆はエチオピアのグジ。浅煎りで、杏みたいな香り</li>
+        <li>スコーンは11時ごろ。紅茶味もあります</li>
+        <li>雨の日はスタンプ2つ</li>
+        <li>マイカップならいつでも30円引き</li>
+      </ul>
+      <span class="memo-sign">店主</span>
+    </div>
+  </section>
+
+  <section class="picks" id="picks" aria-labelledby="picks-title">
+    <h2 class="picks-h" id="picks-title">よく出る品</h2>
+    <figure class="pick p1">
+      <div class="pick-photo"><img src="img/latte.jpg" width="720" height="720" alt="葉っぱの模様を描いたカフェラテ" loading="lazy" decoding="async"></div>
+      <figcaption><span class="pick-row"><span class="pick-name">カフェラテ</span><span class="pick-price num">480</span></span><span class="pick-note">模様は日によって変わります。今朝は葉っぱ。</span></figcaption>
+    </figure>
+    <figure class="pick p2">
+      <div class="pick-photo"><img src="img/toast.jpg" width="720" height="720" alt="バターをのせた厚切りのトースト" loading="lazy" decoding="async"></div>
+      <figcaption><span class="pick-row"><span class="pick-name">厚切りバタートースト</span><span class="pick-price num">350</span></span><span class="pick-note">ゆで卵とドリップを付けると650円。</span></figcaption>
+    </figure>
+    <figure class="pick p3">
+      <div class="pick-photo"><img src="img/purin.jpg" width="720" height="720" alt="カラメルのかかった固めのプリン" loading="lazy" decoding="async">
+        <svg class="hanko" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="24"/><text x="27" y="36.5" text-anchor="middle">推</text></svg></div>
+      <figcaption><span class="pick-row"><span class="pick-name">固めのプリン<span class="sr">（店主のおすすめ）</span></span><span class="pick-price num">380</span></span><span class="pick-note">スプーンが立つくらい固いです。</span></figcaption>
+    </figure>
+    <figure class="pick p4">
+      <div class="pick-photo"><img src="img/scone.jpg" width="720" height="720" alt="クリームとジャムをはさんだスコーン" loading="lazy" decoding="async"></div>
+      <figcaption><span class="pick-row"><span class="pick-name">スコーン</span><span class="pick-price num">280</span></span><span class="pick-note">11時ごろ焼き上がり。売り切れたら終わり。</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="menu-sec" id="menu" aria-labelledby="menu-title">
+    <div class="menu-card paper">
+      <h2 class="menu-title" id="menu-title">品書き</h2>
+      <p class="menu-tax">値段はすべて税込みです</p>
+
+      <h3 class="menu-cat">珈琲</h3>
+      <ul class="menu-list">
+        <li><span class="mi-name">本日のドリップ</span><span class="mi-dots"></span><span class="mi-price"><small>S</small>380<small>M</small>450</span><p class="mi-spec">Sは粉15gにお湯240ml。3分かけて落とします</p></li>
+        <li><span class="mi-name">カフェラテ</span><span class="mi-dots"></span><span class="mi-price">480</span><p class="mi-spec">エスプレッソ2杯分に、温めた牛乳180ml</p></li>
+        <li><span class="mi-name">カフェオレ</span><span class="mi-dots"></span><span class="mi-price">450</span><p class="mi-spec">ドリップと牛乳を半分ずつ</p></li>
+        <li><span class="mi-name">水出しアイスコーヒー</span><span class="mi-dots"></span><span class="mi-price">420</span><p class="mi-spec">前の晩から8時間かけて落としています</p></li>
+        <li><span class="mi-name">ほうじ茶ラテ</span><span class="mi-dots"></span><span class="mi-price">480</span><p class="mi-spec">コーヒーが苦手な方に</p></li>
+        <li><span class="mi-name">子ども用ホットミルク</span><span class="mi-dots"></span><span class="mi-price">150</span></li>
+      </ul>
+
+      <h3 class="menu-cat">朝ごはん <small>11時まで</small></h3>
+      <ul class="menu-list">
+        <li><span class="mi-name">モーニングセット</span><span class="mi-dots"></span><span class="mi-price">650</span><p class="mi-spec">厚切りトースト、ゆで卵、本日のドリップS</p></li>
+        <li><span class="mi-name">厚切りバタートースト</span><span class="mi-dots"></span><span class="mi-price">350</span><p class="mi-spec">坂下のパン屋の山食を4枚切りで</p></li>
+        <li><span class="mi-name">小倉トースト</span><span class="mi-dots"></span><span class="mi-price">420</span><p class="mi-spec">あんこは店で炊いています</p></li>
+        <li><span class="mi-name">ハムとチーズのホットサンド</span><span class="mi-dots"></span><span class="mi-price">480</span></li>
+        <li><span class="mi-name">ゆで卵</span><span class="mi-dots"></span><span class="mi-price">60</span><p class="mi-spec">半熟か固ゆでか、注文のときに</p></li>
+      </ul>
+
+      <h3 class="menu-cat">甘いもの</h3>
+      <ul class="menu-list">
+        <li><span class="mi-name">固めのプリン<span class="mi-pick">おすすめ</span></span><span class="mi-dots"></span><span class="mi-price">380</span><p class="mi-spec">カラメルは苦めです</p></li>
+        <li><span class="mi-name">スコーン（プレーン、紅茶）</span><span class="mi-dots"></span><span class="mi-price">280</span></li>
+        <li><span class="mi-name">バナナブレッド</span><span class="mi-dots"></span><span class="mi-price">320</span><p class="mi-spec">くるみ入り</p></li>
+        <li><span class="mi-name">黒糖くるみクッキー（2枚）</span><span class="mi-dots"></span><span class="mi-price">180</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="beans-sec" id="beans" aria-labelledby="beans-title">
+    <h2 class="beans-h" id="beans-title">豆の量り売り</h2>
+    <p class="beans-lead">月曜に焼いて、その週のうちに売り切ります。</p>
+    <figure class="bleed"><img src="img/beans.jpg" width="900" height="506" alt="焼き上がったコーヒー豆" loading="lazy" decoding="async"></figure>
+    <div class="bean">
+      <h3>汐見ブレンド</h3>
+      <p class="bean-sub">ブラジルとコロンビア、中深煎り</p>
+      <p class="bean-price num"><small>100g</small>700</p>
+      <p class="bean-taste">黒糖とくるみの感じ。牛乳を入れてもぼやけません。</p>
+    </div>
+    <div class="bean">
+      <h3>エチオピア グジ</h3>
+      <p class="bean-sub">グジ地区の水洗式、浅煎り</p>
+      <p class="bean-price num"><small>100g</small>850</p>
+      <p class="bean-taste">杏と紅茶。冷めてからのほうが甘く感じます。</p>
+    </div>
+    <div class="bean">
+      <h3>グアテマラ アンティグア</h3>
+      <p class="bean-sub">アンティグア地方、中煎り</p>
+      <p class="bean-price num"><small>100g</small>780</p>
+      <p class="bean-taste">カカオとオレンジの皮。毎日飲むならこれ。</p>
+    </div>
+    <p class="beans-note">挽いてお渡しもできます。ペーパー用、フレンチプレス用など、使う道具を教えてください。</p>
+  </section>
+
+  <section class="day-sec" id="day" aria-labelledby="day-title">
+    <h2 class="day-h" id="day-title">店の一日</h2>
+    <figure class="day-photo"><img src="img/counter.jpg" width="900" height="600" alt="カウンターでケトルからお湯を注ぎ、コーヒーを落としているところ" loading="lazy" decoding="async"></figure>
+    <ol class="day">
+      <li data-min="390"><span class="now" aria-hidden="true">いまここ</span><time>6:30</time><p>開店。一番乗りは、だいたい漁港から帰ってきた人です。</p></li>
+      <li data-min="420"><span class="now" aria-hidden="true">いまここ</span><time>7:00</time><p>坂下のパン屋から食パンが届きます。トーストはここから。</p></li>
+      <li data-min="480"><span class="now" aria-hidden="true">いまここ</span><time>8:00</time><p>通勤と通学で一番混む時間。持ち帰りは右の小窓からどうぞ。</p></li>
+      <li data-min="540"><span class="now" aria-hidden="true">いまここ</span><time>9:00</time><p>落ち着きます。座って飲むならこのあたりから。</p></li>
+      <li data-min="660"><span class="now" aria-hidden="true">いまここ</span><time>11:00</time><p>朝ごはんはここまで。スコーンが焼き上がります。</p></li>
+      <li data-min="810"><span class="now" aria-hidden="true">いまここ</span><time>13:30</time><p>ラストオーダー。</p></li>
+      <li data-min="840"><time>14:00</time><p>閉店。月曜はこのあと、1週間分の豆を焼きます。</p></li>
+    </ol>
+  </section>
+
+  <section class="access-sec" id="access" aria-labelledby="access-title">
+    <h2 class="access-h" id="access-title">道順</h2>
+    <div class="shopcard paper">
+      <div class="sc-head"><span class="sc-name">珈琲 六時半</span><span class="sc-en">Rokuji-han Coffee</span></div>
+      <svg class="map" viewBox="0 0 340 236" role="img" aria-labelledby="map-title">
+        <title id="map-title">汐見坂駅の東口から線路沿いに進み、郵便局の角を曲がって坂を上った先、バス停「坂上二丁目」の向かいに店があります</title>
+        <defs>
+          <pattern id="wave" width="22" height="9" patternUnits="userSpaceOnUse"><path d="M0 5 Q5.5 1 11 5 T22 5" class="m-ln" stroke-width="1.3"/></pattern>
+          <path id="road" d="M100 172 L100 150 L166 150 C202 150 208 112 228 96 S268 62 286 60"/>
+        </defs>
+        <g filter="url(#rough)">
+          <rect x="0" y="204" width="340" height="32" fill="url(#wave)"/>
+          <line x1="0" y1="190" x2="340" y2="190" class="m-ln" stroke-width="2"/>
+          <line x1="0" y1="190" x2="340" y2="190" class="m-ln" stroke-width="8" stroke-dasharray="1.6 10"/>
+          <use href="#road" class="m-road"/>
+          <use href="#road" class="m-road-in"/>
+          <path d="M132 150 L150 126 L172 112 L192 88 L226 72" class="m-stairs"/>
+          <rect x="24" y="164" width="76" height="22" class="m-box"/>
+          <rect x="160" y="158" width="20" height="15" class="m-box"/>
+          <circle cx="304" cy="84" r="5" class="m-solid"/>
+          <circle cx="284" cy="46" r="9" class="m-shop"/>
+          <ellipse cx="285" cy="47" rx="23" ry="17" class="m-ring" transform="rotate(-12 285 47)"/>
+          <path d="M20 38 L26 22 L32 38 L26 33 Z" class="m-solid"/>
+        </g>
+        <text x="306" y="226" class="m-tm">海</text>
+        <text x="24" y="118" class="m-th">階段の近道</text>
+        <text x="24" y="134" class="m-th">雨の日は滑ります</text>
+        <text x="62" y="179.5" class="m-t" text-anchor="middle">汐見坂駅</text>
+        <text x="94" y="158" class="m-t" text-anchor="end">東口</text>
+        <text x="185" y="170" class="m-t">郵便局</text>
+        <text x="214" y="138" class="m-t">上り坂 4分</text>
+        <text x="334" y="104" class="m-t" text-anchor="end">バス停</text>
+        <text x="334" y="119" class="m-t" text-anchor="end">坂上二丁目</text>
+        <text x="226" y="28" class="m-th">ここです</text>
+        <text x="26" y="53" class="m-t" text-anchor="middle">北</text>
+      </svg>
+      <dl class="sc-info">
+        <dt>住所</dt><dd>架空県汐見坂市坂上町2-6-30</dd>
+        <dt>営業</dt><dd><span class="num">6:30</span>から<span class="num">14:00</span>まで（ラストオーダー13時半）</dd>
+        <dt>休み</dt><dd>水曜日</dd>
+        <dt>席</dt><dd>カウンター6席と、外のベンチがひとつ</dd>
+        <dt>支払い</dt><dd>現金、交通系IC、QRコード</dd>
+        <dt>犬</dt><dd>外のベンチならどうぞ。お水も出します</dd>
+      </dl>
+    </div>
+    <ol class="steps">
+      <li><span class="n" aria-hidden="true">1</span><p>汐見坂駅の東口を出て、線路沿いを右へ。</p></li>
+      <li><span class="n" aria-hidden="true">2</span><p>郵便局の角を左に曲がると、上り坂が始まります。</p></li>
+      <li><span class="n" aria-hidden="true">3</span><p>4分ほど上るとバス停「坂上二丁目」。その向かいの、青い日よけの店です。</p></li>
+    </ol>
+    <p class="access-note">駐車場はありません。自転車はベンチの横に停められます。</p>
+  </section>
+
+  <footer class="foot">
+    ※この店は架空です。ランディングページの見本として作りました。<br>写真：Unsplash　注ぐ映像：Mixkit
+  </footer>
+</div>
+
+<nav class="bar" id="bar" lang="ja" aria-label="すぐに見る">
+  <p class="bar-status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span class="st-main" id="st-main">営業時間 6:30〜14:00</span><span class="st-sub" id="st-sub">水曜休み</span></p>
+  <a class="bar-btn" href="#menu">品書き</a>
+  <a class="bar-btn fill" href="#access">道順</a>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+  const root = document.documentElement;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  /* ---------- 営業中かどうか（日本時間） ---------- */
+  const OPEN = 390, LAST = 810, CLOSE = 840, HOLIDAY = 3;
+  const WD = ['日', '月', '火', '水', '木', '金', '土'];
+  const jst = () => {
+    const d = new Date(Date.now() + 9 * 36e5);
+    return { day: d.getUTCDay(), min: d.getUTCHours() * 60 + d.getUTCMinutes(), mon: d.getUTCMonth() + 1, date: d.getUTCDate() };
+  };
+  const left = m => { const h = Math.floor(m / 60), r = m % 60; return h ? (r ? `${h}時間${r}分` : `${h}時間`) : `${r}分`; };
+  function updateShop() {
+    const t = jst();
+    let open = false, main, sub;
+    if (t.day === HOLIDAY) { main = '定休日'; sub = '水曜はお休み。明日6:30から'; }
+    else if (t.min < OPEN) { main = '準備中'; sub = `今日は6:30から（あと${left(OPEN - t.min)}）`; }
+    else if (t.min < CLOSE) { open = true; main = '営業中'; sub = t.min < LAST ? `閉店まであと${left(CLOSE - t.min)}` : 'ラストオーダーは終わりました'; }
+    else { main = '本日は終了'; sub = (t.day + 1) % 7 === HOLIDAY ? '明日は定休日。木曜6:30から' : '明日6:30から'; }
+    document.getElementById('st-main').textContent = main;
+    document.getElementById('st-sub').textContent = sub;
+    document.getElementById('bar').classList.toggle('is-open', open);
+    document.getElementById('today').textContent = `${t.mon}月${t.date}日（${WD[t.day]}）`;
+    const items = [...document.querySelectorAll('.day li')];
+    let now = -1;
+    if (open) items.forEach((li, i) => { if (+li.dataset.min <= t.min) now = i; });
+    items.forEach((li, i) => li.classList.toggle('is-now', i === now));
+  }
+  updateShop();
+  setInterval(updateShop, 30000);
+
+  /* ---------- 注ぐ話：読み進めた割合で文字を切り替える ---------- */
+  root.classList.add('js-story');
+  const story = document.querySelector('.story');
+  const beats = [...document.querySelectorAll('.beat')];
+  const dots = [...document.querySelectorAll('.dots li')];
+  const cue = document.getElementById('cue');
+  const RANGES = [[0, .36], [.36, .70], [.70, 1.01]];
+  function storyProgress() {
+    const r = story.getBoundingClientRect();
+    const span = r.height - innerHeight;
+    return span > 0 ? clamp(-r.top / span, 0, 1) : 0;
+  }
+  let shownBeat = -1, beatsAt = -1;
+  function updateBeats(p) {
+    if (p === beatsAt) return;
+    beatsAt = p;
+    let current = 0;
+    beats.forEach((b, i) => {
+      const [a, z] = RANGES[i];
+      const fadeIn = i === 0 ? 1 : smooth(a - .04, a + .03, p);
+      const fadeOut = i === beats.length - 1 ? 1 : 1 - smooth(z - .05, z + .01, p);
+      const o = Math.min(fadeIn, fadeOut);
+      b.style.opacity = o.toFixed(3);
+      b.style.transform = `translate3d(0,${((1 - fadeIn) * 18 - (1 - fadeOut) * 18).toFixed(1)}px,0)`;
+      b.classList.toggle('on', o > .5);
+      if (p >= a) current = i;
+    });
+    if (current !== shownBeat) { shownBeat = current; dots.forEach((d, i) => d.classList.toggle('on', i === current)); }
+    cue.style.opacity = (1 - smooth(.02, .08, p)).toFixed(3);
+  }
+  updateBeats(storyProgress());
+
+  /* ---------- 3D：煙、月、しずく、カップ、ミルク、湯気 ---------- */
+  const canvas = document.getElementById('gl');
+  const cupEl = document.getElementById('cup');
+  let renderer = null;
+  if (window.THREE) {
+    try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' }); }
+    catch (e) { renderer = null; }
+  }
+  if (!renderer) {
+    root.classList.add('no-gl');
+    addEventListener('scroll', () => updateBeats(storyProgress()), { passive: true });
+    return;
+  }
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(0, 1, 0, -1, -10, 10);
+  // 煙の模様。重ねる回数を4から3に減らし、明るさは前と同じになるように掛け直す
+  const NOISE = `
+    float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+    float noise(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y); }
+    float fbm(vec2 p){ float v = 0.0, a = 0.5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+      for (int i = 0; i < 3; i++){ v += a * noise(p); p = m * p; a *= 0.5; } return v * 1.0714; }`;
+  const VERT = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
+  const U = {
+    uTime: { value: 0 }, uDpr: { value: 1 }, uView: { value: new THREE.Vector2(1, 1) },
+    uCup: { value: new THREE.Vector3(0, 0, 1) }, uMoon: { value: new THREE.Vector3(0, 0, 1) },
+    uP: { value: 0 }, uVis: { value: 1 }
+  };
+  const quad = (mat, order) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat); m.renderOrder = order; m.frustumCulled = false; scene.add(m); return m; };
+  const shader = (frag, extra = {}) => new THREE.ShaderMaterial({
+    uniforms: Object.assign({}, U, extra), vertexShader: VERT, fragmentShader: frag,
+    transparent: true, depthTest: false, depthWrite: false
+  });
+
+  // 背景：あたたかい黒に、琥珀色の煙。カップのまわりほど濃く、月のまわりはぼんやり明るい
+  const bg = quad(shader(`
+    uniform float uTime, uDpr, uVis; uniform vec2 uView; uniform vec3 uCup, uMoon;
+    varying vec2 vUv;
+    ${NOISE}
+    void main(){
+      vec2 px = vec2(gl_FragCoord.x, uView.y * uDpr - gl_FragCoord.y) / uDpr;
+      vec2 p = px / uView.y;
+      float t = uTime;
+      vec2 q = p * vec2(3.0, 2.2) + vec2(0.0, t * 0.05);
+      vec2 w = vec2(fbm(q + vec2(t * 0.03, 0.0)), noise(q * 1.7 + vec2(5.2, -t * 0.04)) * 0.94);
+      float s = fbm(q * 1.4 + (w - 0.5) * 3.0);
+      float ink = smoothstep(0.52, 0.82, s);
+      float near = exp(-pow(distance(px, uCup.xy) / (uCup.z * 1.5), 2.0)) * uVis;
+      vec3 col = vec3(0.051, 0.035, 0.027);
+      col += vec3(0.48, 0.27, 0.13) * ink * (0.10 + 0.55 * near);
+      col += vec3(0.85, 0.55, 0.28) * smoothstep(0.74, 0.9, s) * (0.05 + 0.35 * near);
+      float md = distance(px, uMoon.xy) / uMoon.z;
+      col += vec3(0.95, 0.83, 0.62) * exp(-max(md - 1.0, 0.0) * 2.6) * 0.20 * uVis;
+      col += (hash(gl_FragCoord.xy + fract(t * 7.0)) - 0.5) * 0.03;
+      gl_FragColor = vec4(col, 1.0);
+    }`), 0);
+
+  // 月：まだ空に残っている白い月。ぼんやりした模様つき
+  const moon = quad(shader(`
+    uniform float uVis; varying vec2 vUv;
+    ${NOISE}
+    void main(){
+      vec2 c = vUv * 2.0 - 1.0; float r = length(c);
+      float disc = 1.0 - smoothstep(0.965, 1.0, r);
+      float n = fbm(c * 2.6 + 7.0), cr = smoothstep(0.56, 0.74, fbm(c * 5.5 + 2.0));
+      vec3 col = vec3(0.96, 0.9, 0.77) * (0.80 + 0.28 * n - 0.10 * cr);
+      col *= 0.82 + 0.18 * sqrt(max(0.0, 1.0 - r * r));
+      gl_FragColor = vec4(col, disc * uVis);
+    }`), 1);
+
+  // しずく：カップのまわりを漂う、小さな琥珀色の粒（奥と手前の2組）
+  function drops(n, seed, order, near) {
+    const g = new THREE.BufferGeometry();
+    const a = new Float32Array(n * 4);
+    let s = seed;
+    const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < n; i++) {
+      a[i * 4] = r() * Math.PI * 2;
+      a[i * 4 + 1] = near ? 0.55 + r() * 0.5 : 0.62 + r() * 0.75;
+      a[i * 4 + 2] = near ? 4 + r() * 7 : 2 + r() * 4.5;
+      a[i * 4 + 3] = r();
+    }
+    g.setAttribute('aSeed', new THREE.BufferAttribute(a, 4));
+    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n * 3), 3));
+    const m = new THREE.ShaderMaterial({
+      uniforms: U, transparent: true, depthTest: false, depthWrite: false,
+      vertexShader: `
+        uniform float uTime, uDpr, uP; uniform vec3 uCup; attribute vec4 aSeed; varying float vA;
+        void main(){
+          float ang = aSeed.x + uTime * (0.03 + 0.05 * aSeed.w) + uP * 1.2;
+          float rad = aSeed.y * uCup.z * (1.0 + 0.04 * sin(uTime * 0.7 + aSeed.w * 9.0));
+          vec2 pos = uCup.xy + vec2(cos(ang) * rad, sin(ang) * rad * 0.82 + sin(uTime * 0.5 + aSeed.w * 6.0) * 6.0);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos.x, -pos.y, 0.0, 1.0);
+          gl_PointSize = aSeed.z * uDpr;
+          vA = 0.55 + 0.45 * aSeed.w;
+        }`,
+      fragmentShader: `
+        uniform float uVis; varying float vA;
+        void main(){
+          float d = length(gl_PointCoord - 0.5);
+          float body = smoothstep(0.5, 0.38, d);
+          float hi = smoothstep(0.2, 0.0, length(gl_PointCoord - vec2(0.36, 0.32)));
+          vec3 col = mix(vec3(0.55, 0.30, 0.14), vec3(1.0, 0.86, 0.66), hi * 0.9);
+          gl_FragColor = vec4(col, body * vA * uVis);
+        }`
+    });
+    const pts = new THREE.Points(g, m); pts.renderOrder = order; pts.frustumCulled = false; scene.add(pts);
+    return pts;
+  }
+  const backDrops = drops(46, 11, 2, false);
+
+  // カップ：注ぐ映像の80コマ（10列×8段）を、読み進めた割合でつなぐ。満ちたあとはミルクが渦を巻く
+  const atlas = new THREE.TextureLoader().load('img/pour.jpg', () => { cupMat.uniforms.uReady.value = 1; frame(performance.now(), true); });
+  atlas.minFilter = THREE.LinearFilter; atlas.magFilter = THREE.LinearFilter; atlas.generateMipmaps = false;
+  const cupMat = shader(`
+    uniform sampler2D uAtlas; uniform float uFrame, uMilk, uSettle, uTime, uReady, uVis;
+    varying vec2 vUv;
+    ${NOISE}
+    vec2 cellUv(float i, vec2 uv){
+      float c = mod(i, 10.0), r = floor(i / 10.0);
+      vec2 u = uv * (338.0 / 340.0) + 1.0 / 340.0;
+      return vec2((c + u.x) / 10.0, (7.0 - r + u.y) / 8.0);
+    }
+    void main(){
+      float i0 = floor(uFrame), i1 = min(i0 + 1.0, 79.0), k = uFrame - i0;
+      vec3 v = mix(texture2D(uAtlas, cellUv(i0, vUv)).rgb, texture2D(uAtlas, cellUv(i1, vUv)).rgb, k);
+      v = pow(v, vec3(0.88)) * 1.22 * vec3(1.06, 1.0, 0.9);
+      float d = distance(vUv, vec2(0.5));
+      v *= mix(1.0, 0.45, smoothstep(0.3, 0.5, d));
+      // ミルク：コーヒーの面（少しつぶれた円）の中だけで渦を巻く。注いでいる間は計算しない
+      if (uMilk > 0.001) {
+        vec2 cp = (vUv - vec2(0.507, 0.452)) / vec2(0.35, 0.312);
+        float rr = length(cp);
+        float inside = 1.0 - smoothstep(0.84, 0.99, rr);
+        float ang = atan(cp.y, cp.x);
+        float tw = (1.0 - rr) * (4.0 + 3.0 * uMilk) + uTime * mix(0.22, 0.04, uSettle);
+        vec2 sw = vec2(cos(ang + tw), sin(ang + tw)) * rr;
+        float n = fbm(sw * 2.4 + vec2(3.1, uTime * 0.03));
+        float n2 = fbm(sw * 5.0 + 9.0);
+        float cover = smoothstep(0.42, 0.62, n + (uMilk - 0.55) * 1.1 - rr * 0.18);
+        vec3 milkCol = mix(vec3(0.48, 0.29, 0.15), vec3(0.88, 0.75, 0.56), smoothstep(0.4, 0.75, n * 0.8 + n2 * 0.4 + uMilk * 0.2));
+        milkCol *= 0.78 + 0.45 * dot(v, vec3(0.3, 0.5, 0.2));
+        v = mix(v, milkCol, cover * inside * smoothstep(0.0, 0.12, uMilk) * 0.94);
+      }
+      gl_FragColor = vec4(v, (1.0 - smoothstep(0.405, 0.5, d)) * uReady * uVis);
+    }`, { uAtlas: { value: atlas }, uFrame: { value: 0 }, uMilk: { value: 0 }, uSettle: { value: 0 }, uReady: { value: 0 } });
+  const cup = quad(cupMat, 3);
+
+  // 湯気：最後にカップから立ちのぼる
+  const steamMat = shader(`
+    uniform float uTime, uSteam, uVis; varying vec2 vUv;
+    ${NOISE}
+    void main(){
+      vec2 uv = vUv;
+      float x = (uv.x - 0.5) * 2.0;
+      float c = fbm(vec2(uv.x * 3.2 + sin(uv.y * 4.0 + uTime * 0.6) * 0.25, uv.y * 2.2 - uTime * 0.45));
+      float wisp = smoothstep(0.45, 0.8, c);
+      float shape = exp(-x * x * 3.5) * smoothstep(0.0, 0.22, uv.y) * (1.0 - smoothstep(0.55, 1.0, uv.y));
+      gl_FragColor = vec4(vec3(0.95, 0.9, 0.82), wisp * shape * 0.36 * uSteam * uVis);
+    }`, { uSteam: { value: 0 } });
+  const steam = quad(steamMat, 4);
+  const frontDrops = drops(22, 77, 5, true);
+
+  let W = 1, H = 1, dpr = 1;
+  function resize() {
+    W = innerWidth; H = innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 1.25, Math.sqrt(1.0e6 / (W * H)));
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(W, H, false);
+    camera.left = 0; camera.right = W; camera.top = 0; camera.bottom = -H; camera.updateProjectionMatrix();
+    bg.scale.set(W, H, 1); bg.position.set(W / 2, -H / 2, 0);
+    U.uDpr.value = dpr; U.uView.value.set(W, H);
+  }
+  resize();
+  let rt;
+  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { resize(); frame(performance.now(), true); }, 120); });
+
+  const start = performance.now();
+  let last = 0, prev = start, pSmooth = storyProgress();
+  function frame(now, force) {
+    const dt = Math.min(0.1, Math.max(0, (now - prev) / 1000)); prev = now;
+    const target = storyProgress();
+    // 読み進めた分に、時間で決まった速さで追いつく（画面の書き換えが遅い機種でも同じ感じ）
+    pSmooth = still || force ? target : lerp(pSmooth, target, 1 - Math.exp(-dt * 18));
+    if (Math.abs(pSmooth - target) < 0.0004) pSmooth = target;
+    const p = pSmooth;
+    updateBeats(p);
+    U.uP.value = p;
+    U.uTime.value = still ? 9.0 : (now - start) / 1000;
+
+    const r = cupEl.getBoundingClientRect();
+    const size = r.width || Math.min(W * 0.84, 380);
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const vis = clamp(1 + r.bottom / (H * 0.4), 0, 1);
+    const shown = vis > 0;
+    U.uVis.value = vis;
+    U.uCup.value.set(cx, cy, size * 0.5);
+
+    cupMat.uniforms.uFrame.value = clamp(p / 0.40, 0, 1) * 79;
+    cupMat.uniforms.uMilk.value = smooth(.38, .72, p);
+    cupMat.uniforms.uSettle.value = smooth(.70, .95, p);
+    cup.scale.set(size, size, 1); cup.position.set(cx, -cy, 0);
+
+    // 月：はじめは右上、最後はカップの後ろで大きく
+    const e = smooth(.55, 1, p);
+    const mr = size * lerp(0.2, 0.5, e);
+    const mx = cx + size * lerp(0.5, 0.0, e), my = cy - size * lerp(1.0, 0.05, e);
+    moon.scale.set(mr * 2, mr * 2, 1); moon.position.set(mx, -my, 0);
+    U.uMoon.value.set(mx, my, mr);
+
+    steamMat.uniforms.uSteam.value = smooth(.74, .96, p);
+    steam.scale.set(size * 0.6, size * 0.8, 1); steam.position.set(cx, -(cy - size * 0.5), 0);
+
+    // カップが見えなくなったら、カップ・月・しずく・湯気は描かない
+    cup.visible = moon.visible = backDrops.visible = frontDrops.visible = shown;
+    steam.visible = shown && p > .7;
+
+    // カップが見えている間は毎回描く。下の欄では煙だけなので1秒に20回まで
+    if (force || still || shown || now - last >= 50) { last = now; renderer.render(scene, camera); }
+  }
+  if (still) {
+    frame(performance.now(), true);
+    addEventListener('scroll', () => frame(performance.now(), true), { passive: true });
+    setTimeout(() => frame(performance.now(), true), 600);
+  } else {
+    const loop = now => { requestAnimationFrame(loop); if (!document.hidden) frame(now, false); };
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+
+</body></html>
